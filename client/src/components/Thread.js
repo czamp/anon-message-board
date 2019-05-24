@@ -1,5 +1,5 @@
 import React from 'react';
-import {Loader, Segment, Grid, Icon } from 'semantic-ui-react';
+import {Loader, Message, Segment, Grid, Icon } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import TimeStamp from './TimeStamp';
 import PublishReply from './PublishReply';
@@ -135,6 +135,9 @@ class Thread extends React.Component {
     if (this.props.preview) {
       this.props.onThreadDelete()
     }
+    else {
+      this.setState({currentThreadDeleted: true})
+    }
   }
 
   openModal = () => this.setState({modalOpen: true})
@@ -157,6 +160,15 @@ class Thread extends React.Component {
     }
     if (this.state.redirect){
       return <Redirect to={`/b/${board}/thread/${thread._id}`} />
+    }
+    if (this.state.currentThreadDeleted) {
+      return(
+        <React.Fragment>
+          <Message success>Your thread has been successfully deleted.
+            <Link to={`/b/${board}/`}>Click here to return to /b/{board}</Link>
+          </Message>
+        </React.Fragment>
+      )
     }
     return(
       <Segment.Group>
