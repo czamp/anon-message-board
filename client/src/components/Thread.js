@@ -23,6 +23,7 @@ class Thread extends React.Component {
     reported: false
   }
 
+
   componentDidMount() {
     if (this.props.preview) {
       this.setState({
@@ -37,8 +38,8 @@ class Thread extends React.Component {
 
   getCompleteThread = () => {
     API.getCompleteThread(
-      this.props.match.params.board,
-      this.props.match.params.id,
+      this.props.board,
+      this.props.id,
       res => this.setState({thread: res.data, isLoading: false}),
       err => console.log(err)
     )
@@ -88,7 +89,7 @@ class Thread extends React.Component {
   reportThread = () => {
     API.reportThread(
       this.props.board,
-      this.props.thread._id,
+      this.state.thread._id,
       res => this.setState({ reported: true }),
       err => this.setState({ reportError: true})
     )
@@ -107,7 +108,7 @@ class Thread extends React.Component {
     API.deleteThread(
       e,
       this.props.board,
-      this.props.thread._id,
+      this.state.thread._id,
       this.state.delete_post_password,
       data =>
         data.data !== 'incorrect password'

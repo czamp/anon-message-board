@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Board from './components/Board';
 import BoardList from './components/BoardList';
-import Thread from './components/Thread';
+import SingleThread from './components/SingleThread';
 // import Navbar from './components/Navbar';
 
 class App extends React.Component {
@@ -12,14 +12,15 @@ class App extends React.Component {
         <div
           style={{
             minHeight: '100vh',
-            background: '#f0e0d6'
+            background: '#f0e0d6',
+            paddingTop: '2rem'
           }}
         >
           {/* <Navbar /> */}
           <Switch>
             <Route path="/" exact component={BoardList} />
             <Route path="/b/:board/" exact component={Board} />
-            <Route path="/b/:board/thread/:id" exact component={Thread} />
+            <Route path="/b/:board/thread/:id" exact component={SingleThread} />
           </Switch>
         </div>
       </BrowserRouter>

@@ -42,7 +42,7 @@ class BoardList extends Component {
   render() {
     if (this.state.error) {
       return (
-        <Container style={{ paddingTop: "2rem" }}>
+        <Container text>
           <Breadcrumb>
             <Breadcrumb.Section>
               <Link to="/">BOARDS</Link>
@@ -53,7 +53,7 @@ class BoardList extends Component {
       );
     } else {
       return (
-        <Container style={{ paddingTop: "2rem" }}>
+        <Container text>
           <Breadcrumb>
             <Breadcrumb.Section>
               <Link to="/">BOARDS</Link>

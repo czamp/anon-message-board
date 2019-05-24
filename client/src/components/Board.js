@@ -37,7 +37,7 @@ class Board extends Component {
     const board = this.props.match.params.board;
     const { threads } = this.state;
     return (
-      <Container text style={{ paddingTop: "2rem" }}>
+      <Container text>
         <BreadcrumbNav board={board} />
         <Header as="h1" textAlign="center">
           <Link to={`/b/${board}/`}>/b/{board}/</Link>
