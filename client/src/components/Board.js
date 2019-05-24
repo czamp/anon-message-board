@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Header, Loader, Message, Segment } from "semantic-ui-react";
+import { Header, Loader, Message, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import PublishThread from "./PublishThread";
 import BreadcrumbNav from "./BreadcrumbNav";
@@ -37,7 +37,7 @@ class Board extends Component {
     const board = this.props.match.params.board;
     const { threads } = this.state;
     return (
-      <Container text>
+      <React.Fragment>
         <BreadcrumbNav board={board} />
         <Header as="h1" textAlign="center">
           <Link to={`/b/${board}/`}>/b/{board}/</Link>
@@ -78,7 +78,7 @@ class Board extends Component {
             />
           ))}
         </Segment>
-      </Container>
+      </React.Fragment>
     );
   }
 }

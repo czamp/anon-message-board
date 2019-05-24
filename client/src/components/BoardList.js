@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
   Breadcrumb,
-  Container,
   Divider,
   Header,
   List,
@@ -49,18 +48,18 @@ class BoardList extends Component {
   render() {
     if (this.state.error) {
       return (
-        <Container text>
+        <React.Fragment>
           <Breadcrumb>
             <Breadcrumb.Section>
               <Link to="/">BOARDS</Link>
             </Breadcrumb.Section>
           </Breadcrumb>
           <Message error>Error: Can not retrieve list of boards.</Message>
-        </Container>
+        </React.Fragment>
       );
     } else {
       return (
-        <Container text>
+        <React.Fragment>
           <Breadcrumb>
             <Breadcrumb.Section>
               <Link to="/">BOARDS</Link>
@@ -86,7 +85,7 @@ class BoardList extends Component {
           {!this.state.isLoading && !this.state.error && (
             <PublishThread allBoards={true} boards={this.state.boards} />
           )}
-        </Container>
+        </React.Fragment>
       );
     }
   }

@@ -1,11 +1,11 @@
 import React from "react";
-import { Container, Header, Segment } from "semantic-ui-react";
+import { Header, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Thread from "./Thread";
 import BreadcrumbNav from "./BreadcrumbNav";
 
 const SingleThread = props => (
-  <Container text>
+  <React.Fragment>
     <BreadcrumbNav
       board={props.match.params.board}
       thread_id={props.match.params.id}
@@ -18,7 +18,7 @@ const SingleThread = props => (
         </Link>
       </Header>
     </Segment>
-  </Container>
+  </React.Fragment>
 );
 
 export default SingleThread;
