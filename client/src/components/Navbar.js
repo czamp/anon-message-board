@@ -15,7 +15,7 @@ const Navbar = () => (
     <Menu.Menu position="right">
       <Menu.Item link>
         <a href="https://github.com/czamp/anon-message-board" target="_blank" rel="noopener noreferrer">
-          <Button icon inverted color="white">
+          <Button icon inverted>
             <Icon name="github" />
             {' '}See The Source Code
           </Button>
