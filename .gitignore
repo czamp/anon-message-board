@@ -2,3 +2,4 @@
 node_modules
 _archive
 /client/build
+.DS_Store
