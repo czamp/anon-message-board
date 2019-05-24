@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Form, Header, Message, Segment, Dropdown } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import API from "../helpers/api";
@@ -7,10 +8,19 @@ class PublishThread extends Component {
   state = {
     text: "",
     delete_password: "",
-    board: "",
     success: false,
     redirect: false,
   };
+
+  static propTypes = {
+    allBoards: PropTypes.bool,
+    board: PropTypes.string,
+    boards: PropTypes.array,
+  }
+
+  static defaultProps = {
+    allBoards: false
+  }
 
   componentDidMount() {
     if (this.props.allBoards) {
@@ -66,15 +76,16 @@ class PublishThread extends Component {
     } else {
       API.postThread(
         e,
-        this.state.board,
+        this.state.board ? this.state.board : this.props.board,
         this.state.text,
         this.state.delete_password,
-        () =>
+        (res) =>
           this.setState({
             success: true,
             text: "",
             delete_password: "",
-            redirect: true
+            redirect: true,
+            thread_id: res.data
           }),
         error => console.log(error)
       );
@@ -82,10 +93,15 @@ class PublishThread extends Component {
   };
 
   render() {
-    if (this.state.redirect) {
+    if (this.state.redirect && this.props.allBoards) {
       return(
         // TODO: Make sure that this correctly redirects based on this.props.board if used in the context of a board or a thread
-        <Redirect to={`/b/${this.props.allBoards ? this.state.board : this.props.board}/`} />
+        <Redirect to={`/b/${this.state.board}/`} />
+      )
+    }
+    if (this.state.redirect && !this.props.allBoards) {
+      return(
+        <Redirect to={`/b/${this.props.board}/${this.state.thread_id}`} />
       )
     }
     return (
@@ -101,7 +117,7 @@ class PublishThread extends Component {
                 name="board"
                 onAddItem={this.handleAddition}
                 onChange={this.handleChange}
-                options={this.state.boards}
+                options={this.state.boards ? this.state.boards : []}
                 placeholder="Choose a board, or create your own"
                 search
                 selection
