@@ -66,7 +66,12 @@ class Board extends Component {
           )}
 
           {threads.map(thread => (
-            <Thread key={thread._id} thread={thread} board={board} />
+            <Thread
+              board={board}
+              key={thread._id}
+              preview
+              thread={thread}
+            />
           ))}
         </Segment>
       </Container>
