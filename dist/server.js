@@ -11,7 +11,7 @@ var runner            = require('./test-runner');
 
 var helmet = require('helmet');
 var mongoose = require('mongoose');
-require('dotenv').config();
+// require('dotenv').config();
 
 var app = express();
 
@@ -27,27 +27,17 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useFindAndModify
 
   });
 
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/static', express.static(process.cwd() + '/app/static'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Sample front-end
-app.route('/b/:board/')
-  .get(function (req, res) {
-    res.sendFile(process.cwd() + '/views/board.html');
-  });
-app.route('/b/:board/:threadid')
-  .get(function (req, res) {
-    res.sendFile(process.cwd() + '/views/thread.html');
-  });
-
 //Index page (static HTML)
 app.route('/')
   .get(function (req, res) {
-    res.sendFile(process.cwd() + '/views/index.html');
+    res.sendFile(process.cwd() + '/app/index.html');
   });
 
 //For FCC testing purposes

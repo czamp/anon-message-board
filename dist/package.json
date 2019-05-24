@@ -1,10 +1,11 @@
 {
   "name": "anon-message-board",
+  "author": "Clay Zamperini",
   "version": "0.0.2",
-  "description": "What am I about?",
+  "description": "Free Code Camp Final Project: Anonymous Message Board",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
