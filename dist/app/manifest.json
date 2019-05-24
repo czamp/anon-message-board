@@ -1,6 +1,6 @@
 {
-  "short_name": "anon-message-board",
-  "name": "Anonymous Message Board by czamp",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
