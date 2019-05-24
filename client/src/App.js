@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "./views/Home";
-import BoardView from "./views/BoardView";
-import ThreadView from "./views/ThreadView";
-import Navbar from './components/Navbar';
+// import Board from './components/Board';
+import BoardList from './components/BoardList';
+// import Thread from './components/Thread';
+// import Navbar from './components/Navbar';
 
 class App extends React.Component {
   render() {
@@ -15,11 +15,11 @@ class App extends React.Component {
             background: '#f0e0d6'
           }}
         >
-          <Navbar />
+          {/* <Navbar /> */}
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/b/:board/" exact component={BoardView} />
-            <Route path="/b/:board/thread/:id" exact component={ThreadView} />
+            <Route path="/" exact component={BoardList} />
+            {/* <Route path="/b/:board/" exact component={Board} /> */}
+            {/* <Route path="/b/:board/thread/:id" exact component={Thread} /> */}
           </Switch>
         </div>
       </BrowserRouter>

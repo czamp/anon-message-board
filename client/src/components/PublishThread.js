@@ -1,84 +1,120 @@
-import React from "react";
-import { Form, Header, Segment, Dropdown } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Form, Header, Message, Segment, Dropdown } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import API from "../helpers/api";
 
-class PublishThread extends React.Component {
+class PublishThread extends Component {
   state = {
     text: "",
-    delete: "",
+    delete_password: "",
     board: "",
-    boards: [],
     success: false,
-    isLoading: true
+    redirect: false,
   };
 
   componentDidMount() {
-    API.listBoards((boards, err) => {
-      if (err) console.log(err);
-      boards = boards.map((b, i) => {
+    if (this.props.allBoards) {
+      var boards = this.props.boards.map((b, i) => {
         return { key: i, text: b, value: b };
       });
       this.setState({
-        isLoading: false,
         boards: boards.sort((a, b) => {
           if (a.text > b.text) {
             return 1;
           } else return -1;
         })
       });
-    });
+    }
   }
+
   handleAddition = (e, { value }) => {
     this.setState(prevState => ({
       boards: [{ text: value, value }, ...prevState.boards]
     }));
   };
+
   handleChange = (e, { name, value }) => {
     this.setState({
-      [name]: value
+      [name]: value,
     });
+    if (name === 'board') {
+      this.setState({boardInputError: false})
+    }
+    if (name === 'delete_password') {
+      this.setState({ passwordInputError: false })
+    }
+    if (name === 'text') {
+      this.setState({ textInputError: false })
+    }
   };
 
   handleSubmit = e => {
-    API.postThread(
-      e,
-      this.state.board,
-      this.state.text,
-      this.state.delete,
-      () =>
-        this.setState({
-          success: true,
-          text: "",
-          delete: ""
-        }),
-      error => console.log(error)
-    );
+    if (this.props.allBoards && this.state.board === "") {
+      this.setState({
+        boardInputError: true
+      });
+    }
+    if (this.state.text === "") {
+      this.setState({
+        textInputError: true
+      });
+    }
+    if (this.state.delete_password === "") {
+      this.setState({
+        passwordInputError: true
+      });
+    } else {
+      API.postThread(
+        e,
+        this.state.board,
+        this.state.text,
+        this.state.delete_password,
+        () =>
+          this.setState({
+            success: true,
+            text: "",
+            delete_password: "",
+            redirect: true
+          }),
+        error => console.log(error)
+      );
+    }
   };
 
   render() {
+    if (this.state.redirect) {
+      return(
+        // TODO: Make sure that this correctly redirects based on this.props.board if used in the context of a board or a thread
+        <Redirect to={`/b/${this.props.allBoards ? this.state.board : this.props.board}/`} />
+      )
+    }
     return (
       <Segment>
-        <Header>Submit a New Thread</Header>
-        <Form>
-          <Form.Field>
-            <label>Board</label>
-            <Dropdown
-              allowAdditions
-              disabled={this.state.isLoading}
-              fluid
-              loading={this.state.isLoading}
-              name="board"
-              onAddItem={this.handleAddition}
-              onChange={this.handleChange}
-              options={this.state.boards}
-              placeholder="Choose a board, or create your own"
-              search
-              selection
-              value={this.state.board}
-            />
-          </Form.Field>
-          <Form.Field>
+        <Header>Submit a new Thread</Header>
+        <Form error>
+          {this.props.allBoards && (
+            <Form.Field>
+              <label>Board</label>
+              <Dropdown
+                allowAdditions
+                fluid
+                name="board"
+                onAddItem={this.handleAddition}
+                onChange={this.handleChange}
+                options={this.state.boards}
+                placeholder="Choose a board, or create your own"
+                search
+                selection
+                value={this.state.board}
+              />
+              {this.state.boardInputError && (
+                <Message error>
+                  Please select a board to post this thread to.
+                </Message>
+              )}
+            </Form.Field>
+          )}
+          <Form.Field required>
             <label>Thread Text</label>
             <Form.TextArea
               name="text"
@@ -86,30 +122,30 @@ class PublishThread extends React.Component {
               placeholder="Thread text..."
               value={this.state.text}
             />
+            {this.state.textInputError && <Message error>Please enter some text for your new thread</Message>}
+          </Form.Field>
+          <Form.Field required>
+            <label>Delete Password</label>
+            <Form.Input
+              name="delete_password"
+              onChange={this.handleChange}
+              placeholder="Enter a password to delete post"
+              type="password"
+              value={this.state.delete_password}
+              width={8}
+            />
+            {this.state.passwordInputError && <Message error>Please enter a password to delete this thread</Message>}
           </Form.Field>
           <Form.Field>
-            <Form.Group>
-              <Form.Input
-                name="delete"
-                onChange={this.handleChange}
-                placeholder="Password to delete..."
-                size="mini"
-                type="password"
-                value={this.state.delete}
-                width={4}
-              />
-              <Form.Button
-                content="Submit Thread"
-                icon="edit"
-                labelPosition="left"
-                onClick={this.handleSubmit}
-                primary
-                size="mini"
-              />
-            </Form.Group>
+            <Form.Button
+              content="Submit Thread"
+              icon="edit"
+              labelPosition="left"
+              onClick={this.handleSubmit}
+              primary
+            />
           </Form.Field>
         </Form>
-        {this.state.success && <Redirect to={`/b/${this.state.board}/`} />}
       </Segment>
     );
   }
