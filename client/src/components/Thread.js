@@ -156,7 +156,7 @@ class Thread extends React.Component {
       return (<Segment><Loader active={this.state.isLoading} /></Segment>)
     }
     if (this.state.redirect){
-      return <Redirect to={`/b/${board}/${thread._id}`} />
+      return <Redirect to={`/b/${board}/thread/${thread._id}`} />
     }
     return(
       <Segment.Group>
