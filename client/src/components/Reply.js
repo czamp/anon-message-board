@@ -1,44 +1,44 @@
 import React, { Component } from "react";
 import { Segment, Grid, Icon } from "semantic-ui-react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TimeStamp from "./TimeStamp";
 import DeletePost from "./DeletePost";
 import API from "../helpers/api";
 
 class Reply extends Component {
   state = {
-    delete_post_password: '',
+    delete_post_password: "",
     replyDeleted: false,
     reported: false,
     reportError: false,
     modalOpen: false
   };
 
-  onInputChange = (e, {name, value}) => {
+  onInputChange = (e, { name, value }) => {
     this.setState({
       [name]: value
-    })
-  }
+    });
+  };
 
   reportReply = () => {
     API.reportReply(
       this.props.board,
       this.props.thread_id,
       this.props.reply._id,
-      res => this.setState({reported: true}),
-      error => this.setState({reportError: true})
-    )
-  }
+      res => this.setState({ reported: true }),
+      error => this.setState({ reportError: true })
+    );
+  };
 
-  deleteReply = (e) => {
+  deleteReply = e => {
     this.setState({
-      requestingDelete: true,
-    })
-    if (this.state.delete_post_password === '') {
+      requestingDelete: true
+    });
+    if (this.state.delete_post_password === "") {
       this.setState({
-        deleteErrorMessage: 'Please enter your password',
-        requestingDelete: false,
-      })
+        deleteErrorMessage: "Please enter your password",
+        requestingDelete: false
+      });
     } else {
       API.deleteReply(
         e,
@@ -47,33 +47,33 @@ class Reply extends Component {
         this.props.reply._id,
         this.state.delete_post_password,
         data =>
-          data.data !== 'incorrect password'
+          data.data !== "incorrect password"
             ? this.setState({
-              deleteErrorMessage: '',
-              requestingDelete: false,
-              replyDeleted: true,
-              modalOpen: false
-            })
+                deleteErrorMessage: "",
+                requestingDelete: false,
+                replyDeleted: true,
+                modalOpen: false
+              })
             : this.setState({
-              deleteErrorMessage: data.data,
-              requestingDelete: false,
-              delete_post_password: ''
-            }),
+                deleteErrorMessage: data.data,
+                requestingDelete: false,
+                delete_post_password: ""
+              }),
         err =>
           this.setState({
-            deleteErrorMessage: 'Something went wrong, please try again',
+            deleteErrorMessage: "Something went wrong, please try again",
             requestingDelete: false
           })
-      )
+      );
     }
-  }
+  };
 
   openModal = () => {
     this.setState({ modalOpen: true });
   };
   closeModal = () => {
-    this.setState({ modalOpen: false, delete_post_password: '' });
-  }
+    this.setState({ modalOpen: false, delete_post_password: "" });
+  };
 
   render() {
     const { reply, board, thread_id } = this.props;
@@ -82,9 +82,11 @@ class Reply extends Component {
         <Segment>
           <Grid>
             <Grid.Column width={14}>
-              <Link to={`/b/${board}/thread/${thread_id}`}>#{reply._id}</Link>
-              {' '}|{' '}
-              <TimeStamp time={reply.created_on} loading={this.state.isLoading}/>
+              <Link to={`/b/${board}/thread/${thread_id}`}>#{reply._id}</Link> |{" "}
+              <TimeStamp
+                time={reply.created_on}
+                loading={this.state.isLoading}
+              />
             </Grid.Column>
             <Grid.Column width={2}>
               {this.state.reported ? (
@@ -106,7 +108,7 @@ class Reply extends Component {
             </Grid.Column>
           </Grid>
         </Segment>
-        <Segment>{this.state.replyDeleted ? '[deleted]' : reply.text}</Segment>
+        <Segment>{this.state.replyDeleted ? "[deleted]" : reply.text}</Segment>
       </Segment.Group>
     );
   }

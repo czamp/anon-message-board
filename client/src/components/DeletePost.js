@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { Header, Form, Message, Icon, Modal } from "semantic-ui-react";
+import PropTypes from "prop-types";
+import { Form, Header, Icon, Message, Modal } from "semantic-ui-react";
 
 const DeletePost = props => (
   <Modal
@@ -63,6 +63,6 @@ DeletePost.propTypes = {
   deleteErrorMessage: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   delete_password: PropTypes.string
-}
+};
 
 export default DeletePost;

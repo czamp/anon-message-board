@@ -26,11 +26,18 @@ class BoardList extends Component {
 
   getBoards = () => {
     API.listBoards(
-      boards => this.setState({
-        error: false,
-        isLoading: false,
-        boards: boards.sort((a, b) => { if (a >b) {return 1} else {return -1}})
-      }),
+      boards =>
+        this.setState({
+          error: false,
+          isLoading: false,
+          boards: boards.sort((a, b) => {
+            if (a > b) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
+        }),
       error =>
         this.setState({
           error: true,
@@ -77,10 +84,7 @@ class BoardList extends Component {
           <Divider horizontal>or</Divider>
           <Loader inline="centered" active={this.state.isLoading} />
           {!this.state.isLoading && !this.state.error && (
-            <PublishThread
-              allBoards={true}
-              boards={this.state.boards}
-            />
+            <PublishThread allBoards={true} boards={this.state.boards} />
           )}
         </Container>
       );

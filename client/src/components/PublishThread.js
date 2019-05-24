@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { Form, Header, Message, Segment, Dropdown } from "semantic-ui-react";
+import PropTypes from "prop-types";
+import { Dropdown, Form, Header, Message, Segment } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import API from "../helpers/api";
 
@@ -9,18 +9,18 @@ class PublishThread extends Component {
     text: "",
     delete_password: "",
     success: false,
-    redirect: false,
+    redirect: false
   };
 
   static propTypes = {
     allBoards: PropTypes.bool,
     board: PropTypes.string,
-    boards: PropTypes.array,
-  }
+    boards: PropTypes.array
+  };
 
   static defaultProps = {
     allBoards: false
-  }
+  };
 
   componentDidMount() {
     if (this.props.allBoards) {
@@ -45,16 +45,16 @@ class PublishThread extends Component {
 
   handleChange = (e, { name, value }) => {
     this.setState({
-      [name]: value,
+      [name]: value
     });
-    if (name === 'board') {
-      this.setState({boardInputError: false})
+    if (name === "board") {
+      this.setState({ boardInputError: false });
     }
-    if (name === 'delete_password') {
-      this.setState({ passwordInputError: false })
+    if (name === "delete_password") {
+      this.setState({ passwordInputError: false });
     }
-    if (name === 'text') {
-      this.setState({ textInputError: false })
+    if (name === "text") {
+      this.setState({ textInputError: false });
     }
   };
 
@@ -79,7 +79,7 @@ class PublishThread extends Component {
         this.state.board ? this.state.board : this.props.board,
         this.state.text,
         this.state.delete_password,
-        (res) =>
+        res =>
           this.setState({
             success: true,
             text: "",
@@ -94,14 +94,14 @@ class PublishThread extends Component {
 
   render() {
     if (this.state.redirect && this.props.allBoards) {
-      return(
-        <Redirect to={`/b/${this.state.board}/`} />
-      )
+      return <Redirect to={`/b/${this.state.board}/`} />;
     }
     if (this.state.redirect && !this.props.allBoards) {
-      return(
-        <Redirect to={`/b/${this.props.board}/thread/${this.state.thread_id}`} />
-      )
+      return (
+        <Redirect
+          to={`/b/${this.props.board}/thread/${this.state.thread_id}`}
+        />
+      );
     }
     return (
       <Segment>
@@ -137,7 +137,11 @@ class PublishThread extends Component {
               placeholder="Thread text..."
               value={this.state.text}
             />
-            {this.state.textInputError && <Message error>Please enter some text for your new thread</Message>}
+            {this.state.textInputError && (
+              <Message error>
+                Please enter some text for your new thread
+              </Message>
+            )}
           </Form.Field>
           <Form.Field required>
             <label>Delete Password</label>
@@ -149,7 +153,11 @@ class PublishThread extends Component {
               value={this.state.delete_password}
               width={8}
             />
-            {this.state.passwordInputError && <Message error>Please enter a password to delete this thread</Message>}
+            {this.state.passwordInputError && (
+              <Message error>
+                Please enter a password to delete this thread
+              </Message>
+            )}
           </Form.Field>
           <Form.Field>
             <Form.Button

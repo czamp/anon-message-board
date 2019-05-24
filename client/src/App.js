@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Board from './components/Board';
-import BoardList from './components/BoardList';
-import SingleThread from './components/SingleThread';
-// import Navbar from './components/Navbar';
+import Board from "./components/Board";
+import BoardList from "./components/BoardList";
+import SingleThread from "./components/SingleThread";
 
 class App extends React.Component {
   render() {
@@ -11,9 +10,9 @@ class App extends React.Component {
       <BrowserRouter>
         <div
           style={{
-            minHeight: '100vh',
-            background: '#f0e0d6',
-            paddingTop: '2rem'
+            minHeight: "100vh",
+            background: "#f0e0d6",
+            paddingTop: "2rem"
           }}
         >
           {/* <Navbar /> */}

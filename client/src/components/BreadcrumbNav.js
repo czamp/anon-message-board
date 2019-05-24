@@ -11,9 +11,7 @@ const BreadcrumbNav = props => (
       <React.Fragment>
         <Breadcrumb.Divider />
         <Breadcrumb.Section>
-          <Link to={`/b/${props.board}/`}>
-            {props.board.toUpperCase()}
-          </Link>
+          <Link to={`/b/${props.board}/`}>{props.board.toUpperCase()}</Link>
         </Breadcrumb.Section>
       </React.Fragment>
     )}

@@ -13,7 +13,7 @@ class Board extends Component {
   };
 
   componentDidMount() {
-    this.getAllThreads()
+    this.getAllThreads();
   }
 
   getAllThreads = () => {
@@ -31,7 +31,7 @@ class Board extends Component {
           error: true
         })
     );
-  }
+  };
 
   render() {
     const board = this.props.match.params.board;
@@ -46,7 +46,6 @@ class Board extends Component {
         <Segment vertical>
           <Loader active={this.state.isLoading} />
 
-          {/* Handle errors and no threads on board */}
           {!this.state.isLoading && (
             <React.Fragment>
               {this.state.error && (

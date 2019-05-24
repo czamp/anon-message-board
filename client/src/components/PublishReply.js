@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Header, Segment, Form, Message } from 'semantic-ui-react';
+import React from "react";
+import PropTypes from "prop-types";
+import { Header, Form, Message, Segment } from "semantic-ui-react";
 
-const PublishReply = (props) => (
+const PublishReply = props => (
   <Segment secondary>
     <Header as="h5">Reply to Thread</Header>
     <Form error>
@@ -26,8 +26,9 @@ const PublishReply = (props) => (
           value={props.delete_password}
           width={8}
         />
-        {props.passwordInputError && <Message error>Please enter a password to delete this reply.</Message>
-        }
+        {props.passwordInputError && (
+          <Message error>Please enter a password to delete this reply.</Message>
+        )}
       </Form.Field>
       <Form.Field>
         <Form.Button
@@ -40,7 +41,7 @@ const PublishReply = (props) => (
       </Form.Field>
     </Form>
   </Segment>
-)
+);
 
 PublishReply.propTypes = {
   onChange: PropTypes.func.isRequired,
@@ -49,6 +50,6 @@ PublishReply.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   passwordInputError: PropTypes.bool,
   textInputError: PropTypes.bool
-}
+};
 
 export default PublishReply;

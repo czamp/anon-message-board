@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const TimeStamp = ({time}) => (
+const TimeStamp = ({ time }) => (
   <time dateTime={new Date(time)}>
     {new Date(time).toLocaleString("en-US")}
   </time>
