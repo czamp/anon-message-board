@@ -13,6 +13,10 @@ class Board extends Component {
   };
 
   componentDidMount() {
+    this.getAllThreads()
+  }
+
+  getAllThreads = () => {
     API.listThreads(
       this.props.match.params.board,
       res =>
@@ -71,6 +75,7 @@ class Board extends Component {
               key={thread._id}
               preview
               thread={thread}
+              onThreadDelete={this.getAllThreads}
             />
           ))}
         </Segment>
