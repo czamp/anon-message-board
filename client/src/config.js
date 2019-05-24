@@ -1,4 +1,4 @@
-// const URL = 'http://localhost:3000'
-const URL = 'https://ash-skate.glitch.me/'
+const URL = 'http://localhost:3000'
+
 
 export default URL
