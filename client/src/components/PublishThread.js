@@ -95,7 +95,6 @@ class PublishThread extends Component {
   render() {
     if (this.state.redirect && this.props.allBoards) {
       return(
-        // TODO: Make sure that this correctly redirects based on this.props.board if used in the context of a board or a thread
         <Redirect to={`/b/${this.state.board}/`} />
       )
     }
