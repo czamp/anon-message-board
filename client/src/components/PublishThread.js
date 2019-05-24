@@ -100,7 +100,7 @@ class PublishThread extends Component {
     }
     if (this.state.redirect && !this.props.allBoards) {
       return(
-        <Redirect to={`/b/${this.props.board}/${this.state.thread_id}`} />
+        <Redirect to={`/b/${this.props.board}/thread/${this.state.thread_id}`} />
       )
     }
     return (

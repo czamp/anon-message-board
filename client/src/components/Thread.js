@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import TimeStamp from './TimeStamp';
 import PublishReply from './PublishReply';
 import DeletePost from './DeletePost';
+import Reply from './Reply';
 import API from '../helpers/api';
 
 class Thread extends React.Component {
@@ -207,7 +208,12 @@ class Thread extends React.Component {
         {thread.replies.length > 0 && (
           <Segment secondary>
             {thread.replies.map(reply => (
-              <div>Reply Component: {reply.text}</div>
+              <Reply
+                reply={reply}
+                key={reply._id}
+                board={board}
+                thread_id={this.props.id}
+              />
             ))}
           </Segment>
         )}
