@@ -29,7 +29,7 @@ class BoardList extends Component {
       boards => this.setState({
         error: false,
         isLoading: false,
-        boards: boards
+        boards: boards.sort((a, b) => { if (a >b) {return 1} else {return -1}})
       }),
       error =>
         this.setState({
